@@ -73,3 +73,8 @@ def update(query):
 	cursor.execute(query)
 	connection.commit()
 
+def updateMany(query):
+	cursor = connection.cursor()
+	cursor.executescript(query)
+	connection.commit()
+	

@@ -1,6 +1,6 @@
 from fastapi import APIRouter,Body,HTTPException
 from presentation.pix import PixData
-from datasource.sqldatabase import update,insert
+from datasource.sqldatabase import update,insert,get_all
 from typing import List
 import re
 router = APIRouter()
@@ -11,7 +11,7 @@ async def create_pix_by_receiver_id(receiver_id: int,
 
 
     query = """
-            insert into receiver (receiver_id,pix,type,deleted)
+            insert into receiver (id,pix,type,deleted)
             values ("{receiver_id}","{pix}","{type}","{deleted}");
             """.format(receiver_id=receiver_id, pix=pix_info.pix, type=pix_info.pix_type, deleted=False)
     if validate_pix(pix_info.pix,pix_info.pix_type):    
@@ -26,7 +26,7 @@ async def create_pix_by_receiver_id(receiver_id: int,
 
 async def validate_email(email:str):
     validation = re.compile(r"([A-Za-z0-9+.-_]+)+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+")
-    return re.fullmatch(validation, email):
+    return re.fullmatch(validation, email)
 
 
 async def validate_pix(pix: str, pix_type: str):
@@ -64,4 +64,5 @@ async def get_pix_by_receiver_id(receiver_id: int):
     get_pix = """select email,pix,type from pix
                     where receiver_id = {receiver_id}
                     and deleted = false;""".format(receiver_id=receiver_id)
-    update(get_pix)
+    receiver_pix = get_all(get_pix)
+    return receiver_pix

@@ -1,6 +1,6 @@
 from fastapi import APIRouter,Body,HTTPException
-from presentation.receiver import ReceiverDataReturn,ReceiverDataCreate,ReceiverDataUpdate,PixData
-from datasource.sqldatabase import get_one,get_all,insert,update,
+from presentation.receiver import ReceiverDataReturn,ReceiverDataCreate,ReceiverDataUpdate
+from datasource.sqldatabase import get_one,get_all,insert,update,updateMany
 from typing import List
 import re
 router = APIRouter()
@@ -89,7 +89,7 @@ async def update_by_receiver_id(receiver_id: int,
         email = {new_email} where receiver_id = {receiver_id}
         and deleted = false;
         """.format(new_email=new_infos.email, receiver_id=receiver_id)
-        update(update_query)
+        updateMany(update_query)
 
     else:
         update_query =''
@@ -138,4 +138,4 @@ async def update_by_receiver_id(receiver_id: int,
             update_query = f"{update_query} {update_cc}"
             updates_list.append(update_cc)
 
-        update(update_query)
+        updateMany(update_query)

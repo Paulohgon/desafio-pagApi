@@ -15,6 +15,8 @@ Foi escolhido um princípio de clean arch, a própria clean arch seria demais pa
 ## Problemas conhecidos
 Por conta do tempo, proposto por mim, e por conta da minha especialidade, back-end, não foi implementado um front-end no projeto. Além disso, não houve muita preocupação com a segurança do código, estando passível de um possivel sqlinjection. Porém resolver esses problemas para um projeto pequeno e que nao ficará exposto tomaria muito tempo. Também foi escolhido um banco simples, sqlite, que supre as necessidades e facilita o desenvolvimento de protótipos como este. Para um grande projeto deveria ser usado postgrees, que possibilitaria realizar validações no próprio banco. Não foi escolhido o postgrees pois houve um foco maior em velocidade nesse projeto, então qualquer obstáculo que pudesse ser facilitado, foi facilitado.
 
+## Tempo de desenvolvimento
+Foi utilizado em média 4 a 5 horas por dia durante 14 dias para o desenvolvimento. Houveram dias onde não houve evolução ou mudança no código por motivos externos. Por exemplo nos finais de semana que tiveram viagens. Com isso foi utilizado o equivalente a 1 semana de trabalho de 8 horas em média.
 
 ## Instalar projeto
 Clonar o projeto em sua máquina

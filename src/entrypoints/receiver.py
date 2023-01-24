@@ -83,7 +83,6 @@ async def update_by_receiver_id(receiver_id: int,
     is_validated = selected_receiver['validated']
     print(type(is_validated))
     if is_validated:
-        print("aicaraca")
         update_query = """
         update receiver set
         email = {new_email} where receiver_id = {receiver_id}

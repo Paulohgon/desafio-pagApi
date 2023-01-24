@@ -11,12 +11,12 @@ async def create_pix_by_receiver_id(receiver_id: int,
 
 
     query = """
-            insert into receiver (id,pix,type,deleted)
-            values ("{receiver_id}","{pix}","{type}","{deleted}");
-            """.format(receiver_id=receiver_id, pix=pix_info.pix, type=pix_info.pix_type, deleted=False)
+            insert into pix (receiver_id,pix,type,deleted,email)
+            values ("{receiver_id}","{pix}","{type}","{deleted}","{email}");
+            """.format(receiver_id=receiver_id, pix=pix_info.pix, type=pix_info.pix_type, deleted=False,email = pix_info.email)
     if validate_pix(pix_info.pix,pix_info.pix_type):    
         if pix_info.email:
-            if validate_email(pix_info.email):
+            if await validate_email(pix_info.email):
                 insert(query)
         else:
             insert(query)
@@ -52,14 +52,14 @@ async def validate_pix(pix: str, pix_type: str):
               
     
 
-@router.post("delete/{pix_id}", summary="create pix")
+@router.post("delete/{pix_id}", summary="delete pix")
 async def delete_pix_by_receiver_id(pix_id: int):
-    delete_pix = """update receiver set delete = true
+    delete_pix = """update receiver set deleted = true
             where id = {pix_id}
             and deleted = false;""".format(pix_id=pix_id)
     update(delete_pix)
 
-@router.get("/{receiver_id}", summary="create pix")
+@router.get("/{receiver_id}", summary="get pix")
 async def get_pix_by_receiver_id(receiver_id: int):
     get_pix = """select email,pix,type from pix
                     where receiver_id = {receiver_id}

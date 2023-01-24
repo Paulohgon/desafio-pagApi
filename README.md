@@ -8,8 +8,8 @@ Criar um gerenciador de pagamentos
 - Sqlite
 - FastAPI
 
-## Aquitetura
-Foi escolhido um princípio de clean arch, a própria clean arch seria demais para um projeto pequeno como esse, então fora utilizado parte da modularização de código proposta pelo clean arch. Ponto como, usecases, foram ignorados.
+## Aquitetura e características
+Foi escolhido um princípio de clean arch, a própria clean arch seria demais para um projeto pequeno como esse, então fora utilizado parte da modularização de código proposta pelo clean arch. Ponto como, usecases, foram ignorados. Além disso, todas as deleções são realizadas com softdelete.
 
 
 ## Problemas conhecidos

@@ -70,7 +70,7 @@ async def create_receiver(
             bank=new_receiver.bank,
             agency=new_receiver.agency,
             cc=new_receiver.cc,
-            validated=False,
+            validated=new_receiver.validated,
             email=new_receiver.email,
             deleted=False)
     insert(query)
@@ -92,20 +92,17 @@ async def update_by_receiver_id(receiver_id: int,
 
     else:
         update_query =''
-        updates_list = list()
 
         if new_infos.name:
             update_name = """update receiver set name = "{new_name}"
             where id = {receiver_id}
             and deleted = false;""".format(receiver_id=receiver_id, new_name=new_infos.name)
             update_query = f"{update_query} {update_name}"
-            updates_list.append(update_name)
         if new_infos.cpf_cnpj:
 
             update_cpf_cnpj = """update receiver set cpf = "{new_cpf_cnpj}"
             where id = {receiver_id}
             and deleted = false;""".format(receiver_id=receiver_id, new_cpf_cnpj=new_infos.cpf_cnpj)
-            updates_list.append(update_cpf_cnpj)
             update_query = f"{update_query} {update_cpf_cnpj}"
 
 
@@ -114,7 +111,6 @@ async def update_by_receiver_id(receiver_id: int,
             update_email = """update receiver set email = "{new_email}"
             where id = {receiver_id}
             and deleted = false;""".format(receiver_id=receiver_id, new_email=new_infos.email)
-            updates_list.append(update_email)
             update_query = f"{update_query} {update_email}"
 
         if new_infos.bank:
@@ -135,6 +131,13 @@ async def update_by_receiver_id(receiver_id: int,
             where id = {receiver_id}
             and deleted = false;""".format(receiver_id=receiver_id, new_cc=new_infos.cc)
             update_query = f"{update_query} {update_cc}"
-            updates_list.append(update_cc)
+
+        if new_infos.validated:
+
+            update_validated = """update receiver set validated = {new_validated}
+            where id = {receiver_id}
+            and deleted = false;""".format(receiver_id=receiver_id, new_validated=new_infos.validated)
+            update_query = f"{update_query} {update_validated}"
+        
 
         updateMany(update_query)

@@ -14,14 +14,14 @@ async def create_pix_by_receiver_id(receiver_id: int,
             insert into pix (receiver_id,pix,type,deleted,email)
             values ("{receiver_id}","{pix}","{type}","{deleted}","{email}");
             """.format(receiver_id=receiver_id, pix=pix_info.pix, type=pix_info.pix_type, deleted=False,email = pix_info.email)
-    if validate_pix(pix_info.pix,pix_info.pix_type):    
+    if await validate_pix(pix_info.pix,pix_info.pix_type):    
         if pix_info.email:
             if await validate_email(pix_info.email):
                 insert(query)
         else:
             insert(query)
     else:
-        raise HTTPException(Status_code=405, detail="Invalid pix") 
+        raise HTTPException(status_code=405, detail="Invalid pix") 
 
 
 async def validate_email(email:str):
@@ -47,7 +47,8 @@ async def validate_pix(pix: str, pix_type: str):
         return re.fullmatch(validation, pix)
             
     if pix_type == 'CHAVE_ALEATORIA':
-        validation = re.compile(r"^((?:\+?55)?)([1-9][0-9])(9?[0-9]{8})$")
+            
+        validation = re.compile(r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
         return re.fullmatch(validation, pix)
               
     
@@ -62,7 +63,6 @@ async def delete_pix_by_receiver_id(pix_id: int):
 @router.get("/{receiver_id}", summary="get pix")
 async def get_pix_by_receiver_id(receiver_id: int):
     get_pix = """select email,pix,type from pix
-                    where receiver_id = {receiver_id}
-                    and deleted = false;""".format(receiver_id=receiver_id)
+ """
     receiver_pix = get_all(get_pix)
     return receiver_pix

@@ -20,6 +20,7 @@ class ReceiverDataCreate(BaseModel):
     agency: str
     cc: str
     email: str
+    validated: bool
 
 class ReceiverDataUpdate(BaseModel):
 
@@ -29,4 +30,4 @@ class ReceiverDataUpdate(BaseModel):
     agency: Optional[str]
     cc: Optional[str]
     email: Optional[str]
-
+    validated: Optional[bool]

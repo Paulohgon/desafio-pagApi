@@ -16,7 +16,6 @@ async def get_receivers():
     """
 
     receivers = get_all(query)
-    print(receivers)
     for receiver in receivers:
         receivers_dict = {}
         receivers_dict['receiver_id'] = receiver[0]
@@ -43,7 +42,6 @@ async def get_receiver_by_id(receiver_id):
     """.format(receiver_id=receiver_id)
 
     receiver = get_one(query)
-    print(receiver)
 
     if receiver is None:
         raise HTTPException(status_code=404, detail="user not found")
@@ -81,7 +79,6 @@ async def update_by_receiver_id(receiver_id: int,
                                 new_infos: ReceiverDataUpdate = Body(...)):
     selected_receiver = await get_receiver_by_id(receiver_id)
     is_validated = selected_receiver['validated']
-    print(type(is_validated))
     if is_validated:
         update_query = """
         update receiver set

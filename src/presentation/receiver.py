@@ -9,7 +9,7 @@ class ReceiverDataReturn(BaseModel):
     bank: str
     agency: str
     cc: str
-    validated: str
+    validated: bool
     email: str
 
 class ReceiverDataCreate(BaseModel):

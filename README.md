@@ -1,4 +1,4 @@
-# Desafio Transfeera
+# Desafio
 
 ## Problema
 Criar um gerenciador de pagamentos
@@ -31,6 +31,6 @@ Após instalado, use o makefile para rodar o projeto com o comando:
 
 Depois de rodar o projeto, acesse localhost:10000 para acessar o root da api e localhost:10000/docs para acessar a documentação
 
-O mesmo vale para a aplicação online https://transfeera.onrender.com/ e https://transfeera.onrender.com/docs, pode ser necessário fazer o dump do banco para fazer os testes por conta do ambiente localizado.
+
 
 Para facilitar o dump do projeto, foi criado um endpoint que faz o dump ja com dados. Basta acessa-lo na documentação.

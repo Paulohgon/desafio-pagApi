@@ -1,7 +1,7 @@
 import sqlite3
 
 
-connection = sqlite3.connect('transfeera_db')
+connection = sqlite3.connect('pagamentos_db')
 import psycopg2
 
 

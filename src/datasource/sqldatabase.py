@@ -1,13 +1,12 @@
+import psycopg2
 import sqlite3
 
 
-connection = sqlite3.connect('pagamentos_db')
-import psycopg2
-
+connection = sqlite3.connect('pagamentos')
 
 
 def create_database():
-	
+
     cursor = connection.cursor()
 
     try:
@@ -24,7 +23,7 @@ def create_database():
 				email character varying(100),
 				deleted bool
 			);"""
-		)
+                       )
         cursor.execute("""	CREATE TABLE IF NOT EXISTS pix (
 				id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 				receiver_id int,
@@ -97,7 +96,6 @@ def create_database():
         cursor.execute("""insert into receiver (name,cpf,bank,agency,cc,validated,email,deleted)
 						values ("Gabriel Lee", "749.324.643-99", "nubank", "1231", "75398112-3", False, "lee@gmail.com", False);""")
 
-
         cursor.close()
 
     except sqlite3.Error as error:
@@ -106,32 +104,33 @@ def create_database():
 
 def get_one(query):
 
-	cursor = connection.cursor()
-	cursor.execute(query)
-	result = cursor.fetchone()
-	return result
+    cursor = connection.cursor()
+    cursor.execute(query)
+    result = cursor.fetchone()
+    return result
 
 
 def get_all(query):
 
-	cursor = connection.cursor()
-	cursor.execute(query)
-	result = cursor.fetchall()
-	return result
+    cursor = connection.cursor()
+    cursor.execute(query)
+    result = cursor.fetchall()
+    return result
+
 
 def insert(query):
-	cursor = connection.cursor()
-	cursor.execute(query)
-	connection.commit()
+    cursor = connection.cursor()
+    cursor.execute(query)
+    connection.commit()
 
 
 def update(query):
-	cursor = connection.cursor()
-	cursor.execute(query)
-	connection.commit()
+    cursor = connection.cursor()
+    cursor.execute(query)
+    connection.commit()
+
 
 def updateMany(query):
-	cursor = connection.cursor()
-	cursor.executescript(query)
-	connection.commit()
-	
+    cursor = connection.cursor()
+    cursor.executescript(query)
+    connection.commit()
